@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Intake Tracker</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('file:///C:/Users/LENOVO/OneDrive/Desktop/TECH3.0/Screenshot 2024-11-06 012238.png'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .tracker-container {
+                background:#ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #e65100;
+        }
+
+        .meal-section {
+            margin-bottom: 30px;
+            text-align: left;
+            border: 1px solid #ffe0b2;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #fff3e0;
+        }
+
+        .meal-section h2 {
+            font-size: 1.5rem;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .meal-section select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ffcc80;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .meal-section select:hover {
+            border-color: #ff9800;
+        }
+
+        .total-calories {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            font-size: 1rem;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f57c00;
+        }
+
+        .clear-button {
+            background-color: #d32f2f;
+            margin-top: 20px;
+        }
+
+        .clear-button:hover {
+            background-color: #b71c1c;
+        }
+
+        .remove-button {
+            background-color: #e57373;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            margin-top: 10px;
+            padding: 5px 10px;
+            display: none; /* Initially hidden */
+        }
+
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tracker-container">
+        <h1>Calorie Intake Tracker</h1>
+
+        <!-- Meal Sections -->
+        <div class="meal-section">
+            <h2>Breakfast</h2>
+            <div id="breakfast-container">
+                <select class="meal-dropdown" onchange="updateCalories()">
+                    <option value="0">Select Breakfast</option>
+                    <option value="200">Oatmeal (200 kcal)</option>
+                    <option value="150">Eggs (150 kcal)</option>
+                    <option value="300">Pancakes (300 kcal)</option>
+                    <option value="250">Fruit Smoothie (250 kcal)</option>
+                    <option value="90">Tea (90 kcal)</option>
+                    <option value="100">Biscuits (100 kcal)</option>
+                    <option value="120">Paratha (120 kcal)</option>
+                    <option value="250">Idli (250 kcal)</option>
+                    <option value="150">Poha (150 kcal)</option>
+                    <option value="300">Dosa (300 kcal)</option>
+                    <option value="100">Upma (100 kcal)</option>
+                    <option value="95">Apple (95 kcal)</option>
+                    <option value="105">Banana (105 kcal)</option>
+                    <option value="120">Besan Cheela (120 kcal)</option>
+                    <option value="80">White Bread (80 kcal)</option>
+                    <option value="70">Brown Bread (70 kcal)</option>
+                    <option value="200">Sandwich (200 kcal)</option>
+                    <option value="120">Aloo Paratha (120 kcal)</option>
+                    <option value="200">Upma (200 kcal)</option>
+                    <option value="200">Chocos (1 cup) with Milk (200 kcal)</option>
+                    <option value="120">Dosa (120 kcal)</option>
+
+                    <!-- Add more food options here -->
+                </select>
+            </div>
+            <button onclick="addDropdown('breakfast')">Add More</button>
+            <button class="remove-button" id="remove-breakfast" onclick="removeDropdown('breakfast')">Remove Last</button>
+        </div>
+
+        <div class="meal-section">
+            <h2>Lunch</h2>
+            <div id="lunch-container">
+                <select class="meal-dropdown" onchange="updateCalories()">
+                    <option value="0">Select Lunch</option>
+                    <option value="400">Grilled Chicken (400 kcal)</option>
+                    <option value="350">Vegetable Salad (350 kcal)</option>
+                    <option value="500">Pasta (500 kcal)</option>
+                    <option value="450">Burrito (450 kcal)</option>
+                    <option value="300">Chapati (300 kcal)</option>
+                    <option value="200">Dal (200 kcal)</option>
+                    <option value="400">Biryani (400 kcal)</option>
+                    <option value="250">Dal Tadka (1 cup) (250 kcal)</option>
+                    <option value="220">Dal Makhni (220 kcal)</option>
+                    <option value="300">Shahi Paneer (300 kcal)</option>
+                    <option value="200">Rice (200 kcal)</option>
+                    <option value="250">Paneer Tikka (1 cup) (250 kcal)</option>
+                    <option value="200">Stuffed Paratha (1 medium) (200 kcal)</option>
+                    <option value="230">Rajma (1 cup) ~230 kcal</option>
+                    <option value="100">Raita (Boondi, ½ cup) (100 kcal)</option>
+                    <option value="220">Veg Pulao (1 cup) (220 kcal)</option>
+                    <option value="400">Khichdi (400 kcal)</option>
+                    <option value="200">Tandoori Chicken (1 piece) (200 kcal)</option>
+                    <option value="250">Egg Curry (1 serving) (250 kcal)</option>
+                    <option value="400">Butter Chicken (1 cup) (400 kcal)</option>
+
+                    <!-- Add more food options here -->
+                </select>
+            </div>
+            <button onclick="addDropdown('lunch')">Add More</button>
+            <button class="remove-button" id="remove-lunch" onclick="removeDropdown('lunch')">Remove Last</button>
+        </div>
+
+        <div class="meal-section">
+            <h2>Evening Snack</h2>
+            <div id="snack-container">
+                <select class="meal-dropdown" onchange="updateCalories()">
+                    <option value="0">Select Snack</option>
+                     <option value="200">Apple (200 kcal)</option>
+                    <option value="100">Nuts (100 kcal)</option>
+                    <option value="150">Granola Bar (150 kcal)</option>
+                    <option value="180">Yogurt (180 kcal)</option>
+                    <option value="90">Samosa (90 kcal)</option>
+                    <option value="120">Tea (120 kcal)</option>
+                    <option value="80">Cookies (80 kcal)</option>
+                    <option value="130">Chaat (130 kcal)</option>
+                    <option value="250">Pakora (250 kcal)</option>
+                    <option value="70">French Fries (70 kcal)</option>
+                    <option value="90">Popcorn (air-popped, 3 cups) (90 kcal)</option>
+                    <option value="120">Peanut Butter Toast (1 slice of whole grain bread + 1 tbsp peanut butter) (120 kcal)</option>
+                    <option value="80">Fruit Salad (80 kcal)</option>
+                    <option value="150">Mini Sandwich (whole grain bread + veggies or cheese) (150 kcal)</option>
+                    <option value="50">Dhokla (1 piece) (50 kcal)</option>
+                    <option value="300">Pav Bhaji (1 serving) (300 kcal)</option>
+                    <option value="150">Kachori (1 medium) (150 kcal)</option>
+
+                    <!-- Add more food options here -->
+                </select>
+            </div>
+            <button onclick="addDropdown('snack')">Add More</button>
+            <button class="remove-button" id="remove-snack" onclick="removeDropdown('snack')">Remove Last</button>
+        </div>
+
+        <div class="meal-section">
+            <h2>Dinner</h2>
+            <div id="dinner-container">
+                <select class="meal-dropdown" onchange="updateCalories()">
+                    <option value="0">Select Dinner</option>
+                     <option value="400">Grilled Chicken (400 kcal)</option>
+                    <option value="350">Vegetable Salad (350 kcal)</option>
+                    <option value="500">Pasta (500 kcal)</option>
+                    <option value="450">Burrito (450 kcal)</option>
+                    <option value="300">Chapati (300 kcal)</option>
+                    <option value="200">Dal (200 kcal)</option>
+                    <option value="400">Biryani (400 kcal)</option>
+                    <option value="250">Dal Tadka (1 cup) (250 kcal)</option>
+                    <option value="220">Dal Makhni (220 kcal)</option>
+                    <option value="300">Shahi Paneer (300 kcal)</option>
+                    <option value="200">Rice (200 kcal)</option>
+                    <option value="250">Paneer Tikka (1 cup) (250 kcal)</option>
+                    <option value="200">Stuffed Paratha (1 medium) (200 kcal)</option>
+                    <option value="230">Rajma (1 cup) ~230 kcal</option>
+                    <option value="100">Raita (Boondi, ½ cup) (100 kcal)</option>
+                    <option value="220">Veg Pulao (1 cup) (220 kcal)</option>
+                    <option value="400">Khichdi (400 kcal)</option>
+                    <option value="200">Tandoori Chicken (1 piece) (200 kcal)</option>
+                    <option value="250">Egg Curry (1 serving) (250 kcal)</option>
+                    <option value="400">Butter Chicken (1 cup) (400 kcal)</optio
+                    <!-- Add more food options here -->
+                </select>
+            </div>
+            <button onclick="addDropdown('dinner')">Add More</button>
+            <button class="remove-button" id="remove-dinner" onclick="removeDropdown('dinner')">Remove Last</button>
+        </div>
+
+        <div class="total-calories" id="total-calories">Total Calories: 0</div>
+        <button class="clear-button" onclick="clearTracker()">Clear</button>
+        <button class="clear-button" onclick="goHome()">Home Page</button>
+
+    </div>
+
+    <script>
+        const calorieLimit = parseInt(localStorage.getItem("calorieLimit")) || 2000;
+
+        function updateCalories() {
+            let totalCalories = 0;
+            document.querySelectorAll("select").forEach(dropdown => {
+                totalCalories += parseInt(dropdown.value) || 0;
+            });
+            document.getElementById("total-calories").innerHTML = `Total Calories: ${totalCalories} / ${calorieLimit} kcal`;
+        }
+
+        function addDropdown(meal) {
+            const container = document.getElementById(`${meal}-container`);
+            const newDropdown = container.children[0].cloneNode(true);
+            newDropdown.value = "0";
+            container.appendChild(newDropdown);
+            updateCalories();
+            toggleRemoveButton(meal);
+        }
+
+        function removeDropdown(meal) {
+            const container = document.getElementById(`${meal}-container`);
+            if (container.children.length > 1) {
+                container.removeChild(container.lastChild);
+                updateCalories();
+                toggleRemoveButton(meal);
+            }
+        }
+
+        function toggleRemoveButton(meal) {
+            const removeButton = document.getElementById(`remove-${meal}`);
+            const container = document.getElementById(`${meal}-container`);
+            removeButton.style.display = container.children.length > 1 ? "inline-block" : "none";
+        }
+
+        function clearTracker() {
+            document.querySelectorAll("select").forEach(dropdown => dropdown.value = "0");
+            updateCalories();
+        }
+         function goHome() {
+            window.location.href = "homenew.html"; // Replace with the actual home page URL
+        }
+
+
+        window.onload = updateCalories;
+    </script>
+
+</body>
+</html>

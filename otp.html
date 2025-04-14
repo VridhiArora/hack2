@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OTP Verification</title>
+    <style>
+        body {
+            background-image: url('file:///C:/Users/LENOVO/OneDrive/Desktop/TECH3.0/Screenshot 2025-04-13 163150.png'); /* Update with correct path */
+            background-size: cover;
+
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: right; /* Align the form container to the right */
+            align-items: center;
+            padding-right: 70px;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            background: white; /* Transparent black background */
+            color: white;
+            padding: 70px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+             border: 4px solid #000000;
+        }
+        .form-container h2 {
+            color: #000000; /* Heading text color */
+        }
+
+        .form-container input {
+            display: block;
+            width: 90%;
+            margin: 15px auto;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid black;
+            background: transparent;
+            color: black;
+        }
+
+        .form-container button {
+            padding: 10px;
+            border: none;
+            background:#000000 ;
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            width: 150px;
+        }
+
+        .form-container button:hover {
+            background: #808080 ;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>OTP Verification</h2>
+        <input type="text" id="otpInput" placeholder="Enter OTP">
+        <button type="button" onclick="verifyOTP()">Verify</button>
+        <div id="verificationMessage" style="margin-top: 15px; color:#1450A3 ;"></div>
+    </div>
+
+    <script>
+        function verifyOTP() {
+            const enteredOtp = document.getElementById('otpInput').value.trim();
+            const storedOtp = localStorage.getItem('otp');
+
+            if (!enteredOtp) {
+                alert("Please enter the OTP!");
+                return;
+            }
+
+            console.log("Entered OTP: ", enteredOtp);
+            console.log("Stored OTP: ", storedOtp);
+
+            // Ensure both OTPs are compared as strings
+            if (enteredOtp === storedOtp) {
+                document.getElementById('verificationMessage').innerText = "OTP Verified Successfully!";
+                localStorage.removeItem('otp'); // Clear OTP after successful verification
+                // Redirect to success page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = "homenew.html"; // Redirect to success page
+                }, 2000);
+            } else {
+                document.getElementById('verificationMessage').innerText = "Invalid OTP. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Report</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f8ff; /* Light blue background */
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .report-container {
+      background-color: white; /* Very light blue for the report */
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .result-section {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .result-section p {
+      margin: 12px 0;
+      font-size: 1.4rem;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #27ae60; /* Green color for the BMI category */
+      font-size: 1.5rem;
+    }
+
+    .section-container {
+      background-color: white; /* White container */
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: #2980b9;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li {
+      background-color: #d6eaff; /* Light blue for list items */
+      margin-bottom: 10px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #2c3e50;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    ul li:hover {
+      transform: scale(1.02);
+      background-color: #d9f2d9; /* Very light green on hover */
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      background-color: #3498db;
+      color: white;
+      text-align: center;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .back-btn:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    .healthy-weight {
+      color: #27ae60; /* Green color for healthy BMI range, same as category */
+      font-weight: bold;
+    }
+
+    /* Style for Recommended Calorie Intake */
+    #calorie-intake {
+      font-size: 1.4rem; /* Adjusted font size */
+      color: #27ae60; /* Black color for the calorie intake text */
+    }
+
+  
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .report-container {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      ul li {
+        font-size: 1rem;
+      }
+
+      .back-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="report-container">
+    <h1>Your BMI Report</h1>
+
+    <div class="result-section">
+      <p><strong>BMI:</strong> <span id="bmi-value" class="highlight">N/A</span></p>
+      <p><strong>Category:</strong> <span id="bmi-category" class="highlight">N/A</span></p>
+      <p><strong>Healthy BMI Range:</strong> <span class="healthy-weight">18.5 - 24.9</span></p>
+      <p><strong>Healthy Weight Range:</strong> <span id="healthy-weight-range" class="highlight">N/A</span></p>
+    </div>
+
+    <!-- New Calorie Intake Section -->
+    <div class="section-container">
+      <div class="section-title">Recommended Calorie Intake</div>
+      <p id="calorie-intake" class="highlight"></p>
+    </div>
+
+   
+    <div class="section-container">
+      <div class="section-title">Fitness Tips</div>
+      <ul id="fitness-tips"></ul>
+    </div>
+
+    <div class="section-container">
+      <div class="section-title">Recommended Exercises</div>
+      <ul id="exercise-list"></ul>
+    </div>
+
+    <div class="section-container">
+      <div class="section-title">Health Risks</div>
+      <ul id="health-risks"></ul>
+    </div>
+
+    <a href="homenew.html" class="back-btn">Back To Home</a>
+    <a href="vridhi5.html" class="back-btn">Back To calculator</a>
+  </div>
+
+  <script>
+    const bmi = parseFloat(sessionStorage.getItem('bmi')) || 0;
+    const height = parseFloat(sessionStorage.getItem('height')) || 0;
+    const category = sessionStorage.getItem('category') || 'N/A';
+    const age = parseInt(sessionStorage.getItem('age')) || 0;
+
+    document.getElementById('bmi-value').textContent = bmi.toFixed(2);
+    document.getElementById('bmi-category').textContent = category;
+
+    // Calculate healthy weight range based on height
+    const minHealthyWeight = (18.5 * (height * height)).toFixed(2);
+    const maxHealthyWeight = (24.9 * (height * height)).toFixed(2);
+    document.getElementById('healthy-weight-range').textContent = `${minHealthyWeight} kg - ${maxHealthyWeight} kg`;
+
+
+    // Calorie intake data based on BMI category
+    const calorieIntake = {
+      underweight: "2,500 - 3,000 kcal/day to gain weight gradually.",
+      normal: "2,000 - 2,500 kcal/day to maintain a healthy weight.",
+      overweight: "1,500 - 2,000 kcal/day for gradual weight loss.",
+      obese: "1,200 - 1,500 kcal/day under medical supervision."
+    };
+
+    const fitnessTips = {
+      underweight: ["Eat more frequently with nutrient-dense meals.", "Include protein-rich foods and healthy fats.", "Try resistance training to build muscle mass."],
+      normal: ["Maintain a balanced diet with proper nutrients.", "Stay physically active with regular exercise.", "Monitor your weight to stay within the healthy range."],
+      overweight: ["Opt for low-calorie, high-fiber foods.", "Incorporate cardio and strength training exercises.", "Avoid processed foods and sugary drinks."],
+      obese: ["Consult a doctor or nutritionist for a personalized plan.", "Focus on portion control and healthy eating habits.", "Engage in low-impact exercises to avoid injury."]
+    };
+
+    const exercises = {
+      underweight: ["Strength training", "Yoga", "Pilates"],
+      normal: ["Cardio exercises", "Strength training", "Swimming"],
+      overweight: ["Walking", "Cycling", "Low-impact cardio"],
+      obese: ["Swimming", "Walking", "Light resistance training"]
+    };
+
+    const healthRisks = {
+      underweight: ["Nutrient deficiencies", "Weak immune system", "Osteoporosis", "Increased risk of fertility issues", " nutritional deficiencies"],
+      normal: ["Low health risks", "Maintain balanced lifestyle"],
+      overweight: ["High blood pressure", "Type 2 diabetes", "Heart disease","sleep apnea", "joint problems","certain cancers"],
+      obese: ["Increased risk of heart disease", "Joint problems", "Type 2 diabetes", "liver disease", "significant psychological effects", "metabolic syndrome", "respiratory issues"]
+    };
+
+    const bmiCategory = category.toLowerCase();
+
+    // Set calorie intake based on BMI category
+    if (calorieIntake[bmiCategory]) {
+      document.getElementById('calorie-intake').textContent = calorieIntake[bmiCategory];
+    }
+    // Populate fitness tips, exercises, and health risks
+    if (fitnessTips[bmiCategory]) {
+      fitnessTips[bmiCategory].forEach(tip => {
+        const li = document.createElement('li');
+        li.textContent = tip;
+        document.getElementById('fitness-tips').appendChild(li);
+      });
+
+      exercises[bmiCategory].forEach(exercise => {
+        const li = document.createElement('li');
+        li.textContent = exercise;
+        document.getElementById('exercise-list').appendChild(li);
+      });
+
+      healthRisks[bmiCategory].forEach(risk => {
+        const li = document.createElement('li');
+        li.textContent = risk;
+        document.getElementById('health-risks').appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>

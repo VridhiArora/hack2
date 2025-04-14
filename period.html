@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌸 Period Tracker & Wellness</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdeef3;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .left, .right {
+      flex: 1;
+      min-width: 360px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #d63384;
+    }
+    h2 {
+      margin-top: 0;
+      color: #c2185b;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #d63384;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .day-name, .day-box {
+      text-align: center;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .day-name {
+      font-weight: bold;
+      background: #ffe9f3;
+    }
+    .day-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .period { background: #fbb6ce !important; }
+    .fertile { background: #d9fdd3 !important; }
+    .ovulation { background: #fff9c4 !important; }
+    .legend {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .legend span {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    .info-box {
+      background: #fff6f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border-left: 4px solid #ffc2c2;
+    }
+    .log-output {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fffafc;
+      border-radius: 10px;
+      border-left: 4px solid #d63384;
+    }
+    ul {
+      padding-left: 18px;
+      margin: 10px 0;
+    }
+    .checkbox-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .checkbox-list label {
+      background: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .checkbox-list input[type="checkbox"] {
+      accent-color: black;
+      margin-right: 6px;
+    }
+.home-btn-container {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color:#d63384; /* Slight color for attraction */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+}
+
+
+  </style>
+</head>
+<body>
+  <h1>🌸 Period Tracker & Wellness Calendar</h1>
+  <div class="container">
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <h2>📝 Your Info</h2>
+      <label>Start Date <input type="date" id="startDate"></label>
+      <label>Cycle Length (days) <input type="number" id="cycleLength"></label>
+      <label>Period Duration (days) <input type="number" id="periodDuration"></label>
+      <button onclick="markCycle()">Show Calendar</button>
+
+      <h2> Today's Log</h2>
+      <label>Mood
+        <select id="mood">
+          <option disabled selected>Select mood</option>
+          <option>😊 Happy</option>
+          <option>😴 Tired</option>
+          <option>😡 Irritable</option>
+          <option>😢 Emotional</option>
+          <option>🤕 Crampy</option>
+        </select>
+      </label>
+      <label>Flow
+        <select id="flow">
+          <option disabled selected>Select flow</option>
+          <option>Light</option>
+          <option>Medium</option>
+          <option>Heavy</option>
+        </select>
+      </label>
+      <label>Symptoms</label>
+      <div class="checkbox-list">
+        <label><input type="checkbox" value="Cramps">Cramps</label>
+        <label><input type="checkbox" value="Bloating">Bloating</label>
+        <label><input type="checkbox" value="Headache">Headache</label>
+        <label><input type="checkbox" value="Mood Swings">Mood Swings</label>
+        <label><input type="checkbox" value="Nausea">Nausea</label>
+      </div>
+      <label>Notes
+        <textarea id="notes" rows="3" placeholder="Symptoms, cravings, etc."></textarea>
+      </label>
+      <button onclick="saveLog()"> Save Log</button>
+
+      <div class="info-box">
+        <h3>🛎️ Gentle Reminders</h3>
+        <ul>
+          <li>💧 Stay hydrated</li>
+          <li>🛏️ Get enough rest</li>
+          <li>🥗 Eat nourishing food</li>
+          <li>🧘 Breathe & stretch a little</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <h2>📅 Calendar</h2>
+      <div class="calendar-header">
+        <button onclick="changeMonth(-1)">←</button>
+        <div id="monthYear"></div>
+        <button onclick="changeMonth(1)">→</button>
+      </div>
+      <div id="calendar"></div>
+      <div class="legend">
+        <div><span style="background:#fbb6ce;"></span> Period</div>
+        <div><span style="background:#d9fdd3;"></span> Fertile</div>
+        <div><span style="background:#fff9c4;"></span> Ovulation</div>
+      </div>
+
+      <!-- ✅ Moved insights ABOVE motivation -->
+      <div class="log-output" id="cycleInsights" style="display:none;"></div>
+
+      <div class="info-box">
+        <h3> Motivation</h3>
+        <p>“Your body is strong, your mind is stronger. You’ve got this.” 💪💖</p>
+      </div>
+    </div>
+  </div>
+<div class="home-btn-container">
+  <a href="homenew.html" class="home-btn">Home</a>
+</div>
+
+
+  <script>
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+    let startDate, cycleLength, periodDuration;
+    let showPredictions = false;
+
+    function changeMonth(val) {
+      currentMonth += val;
+      if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+      drawCalendar();
+    }
+
+    function drawCalendar() {
+      const calendar = document.getElementById("calendar");
+      calendar.innerHTML = "";
+
+      const monthYear = document.getElementById("monthYear");
+      const monthName = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' });
+      monthYear.innerText = `${monthName} ${currentYear}`;
+
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      dayNames.forEach(day => {
+        const dn = document.createElement('div');
+        dn.className = 'day-name';
+        dn.textContent = day;
+        calendar.appendChild(dn);
+      });
+
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'day-box';
+        calendar.appendChild(empty);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const box = document.createElement('div');
+        box.className = 'day-box';
+        box.textContent = d;
+
+        if (showPredictions && startDate) {
+          const date = new Date(currentYear, currentMonth, d);
+          date.setHours(0, 0, 0, 0);
+          const start = new Date(startDate);
+          start.setHours(0, 0, 0, 0);
+
+          const diffDays = Math.floor((date - start) / (1000 * 60 * 60 * 24));
+          const cycleDay = (diffDays >= 0) ? diffDays % cycleLength : -1;
+
+          if (cycleDay >= 0 && cycleDay < periodDuration) {
+            box.classList.add('period');
+          } else if (cycleDay === Math.floor(cycleLength / 2)) {
+            box.classList.add('ovulation');
+          } else if (cycleDay >= Math.floor(cycleLength / 2) - 3 && cycleDay <= Math.floor(cycleLength / 2) + 3) {
+            box.classList.add('fertile');
+          }
+        }
+
+        calendar.appendChild(box);
+      }
+    }
+
+    function markCycle() {
+      const startInput = document.getElementById("startDate").value;
+      cycleLength = parseInt(document.getElementById("cycleLength").value);
+      periodDuration = parseInt(document.getElementById("periodDuration").value);
+
+      if (!startInput || isNaN(cycleLength) || isNaN(periodDuration)) {
+        alert("Please fill all the fields.");
+        return;
+      }
+
+      startDate = new Date(startInput);
+      startDate.setHours(0, 0, 0, 0);
+      showPredictions = true;
+
+      drawCalendar();
+    }
+
+    function saveLog() {
+      const mood = document.getElementById("mood").value;
+      const flow = document.getElementById("flow").value;
+      const notes = document.getElementById("notes").value;
+      const symptomCheckboxes = document.querySelectorAll(".checkbox-list input:checked");
+      const symptoms = Array.from(symptomCheckboxes).map(cb => cb.value).join(", ");
+
+      if (!startDate || !cycleLength || !periodDuration) {
+        alert("Please generate the calendar first by entering your info and clicking 'Show Calendar'.");
+        return;
+      }
+
+      if (!mood || !flow) {
+        alert("Please fill in your mood and flow.");
+        return;
+      }
+
+      const ovulationStart = new Date(startDate);
+      ovulationStart.setDate(startDate.getDate() + Math.floor(cycleLength / 2) - 2);
+      const ovulationEnd = new Date(ovulationStart);
+      ovulationEnd.setDate(ovulationStart.getDate() + 4);
+
+      const nextPeriod = new Date(startDate);
+      nextPeriod.setDate(startDate.getDate() + cycleLength);
+
+      const insight = `
+        <h3>📊 Cycle Insights</h3>
+        <ul>
+          <li><strong>Next Period:</strong> ${nextPeriod.toDateString()}</li>
+          <li><strong>Cycle Length:</strong> ${cycleLength} days</li>
+          <li><strong>Period Duration:</strong> ${periodDuration} days</li>
+          <li><strong>Ovulation Window:</strong> ${ovulationStart.toDateString()} – ${ovulationEnd.toDateString()}</li>
+          <li><strong>Flow Intensity:</strong> ${flow}</li>
+          <li><strong>Symptoms:</strong> ${symptoms || "—"}</li>
+          <li><strong>Notes:</strong> ${notes || "—"}</li>
+        </ul>
+      `;
+
+      const insightsBox = document.getElementById("cycleInsights");
+      insightsBox.innerHTML = insight;
+      insightsBox.style.display = "block";
+    }
+
+    window.onload = () => {
+      drawCalendar();
+    };
+  </script>
+</body>
+</html>

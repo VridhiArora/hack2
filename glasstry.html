@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Intake Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('file:///C:/Users/LENOVO/OneDrive/Desktop/TECH3.0/WhatsApp Image 2024-11-05 at 6.14.28 PM.jpeg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color:#264E70;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            display: block;
+            color: #264E70;
+        }
+
+        input[type="number"],
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #264E70;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #525E75;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #00796b;
+            border-radius: 5px;
+            background-color: #e0f7fa;
+        }
+
+        .button-space {
+            margin-top: 10px; /* Adjust this value for more or less space */
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Water Intake Calculator</h1>
+
+    <div class="container">
+        <label for="age">Age (in years):</label>
+        <input type="number" id="age" placeholder="Enter your age" required>
+
+        <label for="height">Height (in cm):</label>
+        <input type="number" id="height" placeholder="Enter your height" required>
+
+        <label for="weight">Weight (in kg):</label>
+        <input type="number" id="weight" placeholder="Enter your weight" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <button onclick="calculateWaterIntake()">Calculate Water Intake</button>
+
+        <button class="button-space" onclick="goBack()">Back</button>
+
+        <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <script>
+        function calculateWaterIntake() {
+            const age = parseInt(document.getElementById("age").value);
+            const height = parseInt(document.getElementById("height").value);
+            const weight = parseInt(document.getElementById("weight").value);
+            const gender = document.getElementById("gender").value;
+
+            // Basic water intake calculation (in liters)
+            let waterIntake;
+
+            if (gender === "male") {
+                waterIntake = (weight * 0.033) + (height * 0.001) + (age * 0.005);
+            } else {
+                waterIntake = (weight * 0.033) + (height * 0.001) - (age * 0.005);
+            }
+
+            // Convert liters to glasses (1 glass = 250ml)
+            const glassesNeeded = Math.round(waterIntake * 4); // 1 liter = 4 glasses
+
+            // Store the glassesNeeded in sessionStorage
+            sessionStorage.setItem('glassesNeeded', glassesNeeded);
+
+            // Redirect to water intake tracker page
+            window.location.href = "watertry.html"; // Update this to your actual file path
+        }
+
+        function goBack() {
+            window.location.href="homenew.html"; // This will take the user to the previous page
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Intake Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             background-image: url('file:///C:/Users/LENOVO/OneDrive/Desktop/TECH3.0/Screenshot 2024-11-05 144947.png'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        label {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            display: block;
+            color: #d32f2f;
+        }
+
+        input[type="number"], 
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #d32f2f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #c62828;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #d32f2f;
+            border-radius: 5px;
+            background-color: #ffe0b2;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Calorie Intake Calculator</h1>
+
+    <div class="container">
+        <label for="age">Age (in years):</label>
+        <input type="number" id="age" placeholder="Enter your age" required>
+
+        <label for="height">Height (in cm):</label>
+        <input type="number" id="height" placeholder="Enter your height" required>
+
+        <label for="weight">Weight (in kg):</label>
+        <input type="number" id="weight" placeholder="Enter your weight" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <!-- Calculate Calories Button -->
+        <button onclick="calculateCalories()">Calculate Calories</button>
+
+        <!-- Back Button Below Calculate Calories Button -->
+        <button onclick="goBack()" style="margin-top: 10px;">Back</button>
+
+        <div class="result" id="result" style="display:none;"></div>
+
+        <!-- Button to go to the calorie input tracker page -->
+        <button id="toTracker" onclick="goToTracker()" style="display:none;">Go to Calorie Tracker</button>
+    </div>
+
+    <script>
+        function calculateCalories() {
+            const age = parseInt(document.getElementById("age").value);
+            const height = parseInt(document.getElementById("height").value);
+            const weight = parseInt(document.getElementById("weight").value);
+            const gender = document.getElementById("gender").value;
+
+            let bmr;
+
+            // BMR calculation based on gender
+            if (gender === "male") {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+
+            // Assuming sedentary activity level for simplicity
+            const caloriesNeeded = bmr * 1.2;
+
+            // Store the calculated calorie limit in localStorage
+            localStorage.setItem("calorieLimit", Math.round(caloriesNeeded));
+
+            // Display the result
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `Your daily calorie intake should be approximately <strong>${Math.round(caloriesNeeded)}</strong> calories.`;
+            resultDiv.style.display = "block";
+
+            // Show the button to go to the tracker page
+            document.getElementById("toTracker").style.display = "block";
+        }
+
+        function goBack() {
+            window.location.href="homenew.html";
+        }
+
+        function goToTracker() {
+            window.location.href = "caltry.html"; // Change this to the actual name of your tracker page
+        }
+    </script>
+
+</body>
+
+</html>

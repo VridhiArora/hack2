@@ -1,0 +1,858 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMI Calculator - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+<!-- AOS Animation Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #fff;
+    }
+
+    /* ===== TOP WHITE NAVBAR (Logo Left + Menu Right) ===== */
+    .top-navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+       height: 100px; /* sets navbar height */
+  padding: 0 40px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+         }
+
+    .top-navbar .logo {
+      max-height:100%;
+       object-fit: contain;
+    }
+
+    .top-navbar .nav-menu {
+      display: flex;
+      gap: 25px;
+    }
+
+    .top-navbar .nav-menu a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+  line-height: 100px; 
+    }
+.top-navbar .nav-menu a:hover {
+  transform: translateY(-3px);
+  color: #444; /* or any highlight color you like */
+}
+
+
+    /* ===== CATEGORY NAVBAR ===== */
+    .category-navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px 20px;
+      background-color: #fff;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .category-navbar a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.category-navbar a:hover {
+  transform: translateY(-3px);
+  background-color: #f0f0f0;
+  color: #444;
+}
+    /* ===== SLIDESHOW ===== */
+    .slideshow-container {
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      position: relative;
+     
+
+    }
+
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .slide-img.active {
+      display: block;
+    }
+.slideshow-button {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.slideshow-button:hover {
+  background-color: grey;
+}
+
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin: 50px 0 20px;
+      color: #000;
+    }
+
+    /* ===== FEATURE CARDS ===== */
+    .bmi-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 0 40px 60px;
+      justify-content: center;
+      background-color: #f9f9f9;
+    }
+
+   .bmi-card {
+  position: relative;
+  width: 300px;
+  height: 350px; /* You can adjust height here */
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* this centers everything vertically */
+}
+
+    .bmi-card img {
+  max-width: 80%;
+  max-height: 150px;
+  display: block;
+  margin: 20px auto 10px;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
+    .card-content {
+      position: absolute;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: bottom 0.4s ease;
+    }
+
+    .bmi-card:hover img {
+      transform: translateY(-30px); /* slightly less jump */
+    }
+
+    .bmi-card:hover .card-content {
+      bottom: 0;
+    }
+
+    .card-content h3 {
+      margin-bottom: 10px;
+      color: black;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .card-content button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+.about-section {
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #fff;
+  margin-top:0;
+margin-bottom: 20px; /* adjust this as needed */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.about-section + .about-section {
+  margin-top: -30px; /* try -20px, -40px until it looks good */
+}
+
+
+.about-card {
+  display: flex;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+
+.about-image {
+  flex: 0 0 40%;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-content {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-content h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.about-content p {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.btn {
+  background-color: #b0183c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+    .about-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  background-color: #ffffff;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.about-left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-left h2 {
+  font-size: 28px;
+  color: #c62857;
+  margin-bottom: 20px;
+}
+
+.about-left p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.about-right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-right img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  object-fit: cover;
+}
+.about-slideshow {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.about-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.about-slide.active {
+  opacity: 1;
+}
+.hero-slider {
+  background-color:#f9f9f9;
+  width: 100%;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+
+.hero-slide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  padding: 40px 60px;
+  top: 0;
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  animation: slideInBoth 6s ease-in-out forwards;
+}
+
+.hero-text {
+  flex: 1;
+  font-size: 32px;
+  font-weight: bold;
+  color: #c62857;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: none;
+}
+
+.hero-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: none;
+}
+
+.hero-slide.active .hero-text {
+  animation: slideTextIn 1.2s ease forwards;
+}
+
+.hero-slide.active .hero-img {
+  animation: slideImgIn 1.2s ease forwards;
+}
+
+
+.hero-img img {
+  width: 100%;
+  max-width: 450px;
+  height: 300px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+ .featured-section {
+    padding: 50px 20px;
+    background: #fafafa;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .section-title {
+    font-size: 24px;
+    text-align: center;
+    color: black;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+width:100%;
+    margin: 0 auto;
+  }
+
+  .featured-card {
+    width: 100%; /* or 90% if you want some margin */
+  max-width: none; /* increase this if you want them wider */
+  margin: 20px auto; /* center it */
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+
+  .featured-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .featured-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+     color: #c62857;
+  }
+
+  .featured-card p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+  }
+.feature-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.feature-btn:hover {
+  background-color: #444;
+}
+
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+@keyframes slideTextIn {
+  0% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideImgIn {
+  0% { transform: translateX(100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInBoth {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+/* ===== ABOUT US CARD SECTION ===== */
+
+
+
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .top-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .bmi-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .bmi-card {
+        width: 90%;
+      }
+ .about-card {
+    flex-direction: column;
+  }
+
+  .about-image {
+    flex: unset;
+    width: 100%;
+  }
+}
+.chatbot-icon {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #d63384;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: 0.2s;
+}
+
+.chatbot-icon:hover {
+  background-color: #b91d6d;
+  transform: scale(1.1);
+}
+
+.chatbot-window {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 350px;
+  height: 500px;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 9998;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.chatbot-window iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP NAVBAR (WHITE) ===== -->
+  <div class="top-navbar">
+    <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-12 163536.png" alt="Logo" class="logo" />
+    <div class="nav-menu">
+      <a href="homenew.html">Home</a>
+<br>
+      <a href="about.html">About</a>
+<br>
+      <a href="contact.html">Contact Us</a>
+<br>
+     <a href="help.html">Help</a>
+<br>
+ 
+      <a href="vridhi1.html">Login/SignUp</a>
+<br>
+      <a href="PROFILE.html">Profile</a>
+    </div>
+  </div>
+
+  <!-- ===== CATEGORY NAVBAR ===== -->
+  <div class="category-navbar">
+    <a href="vridhi5.html">BMI Calculator</a>
+<br>
+    <a href="period.html">Period Tracker</a>
+<br>
+    <a href="glasstry.html">Water Intake Tracker</a>
+<br>
+    <a href="calinf.html">Calorie Tracker</a>
+<br>
+    <a href="tips.html">Fitness Tips</a>
+<br>
+    <a href="menu.html">Diet Plans</a>
+<br>
+    <a href="bmi-report3.html">Progress Report</a>
+<br>
+    <a href="risk2.html">Health Risks</a>
+  </div>
+
+  <!-- ===== SLIDESHOW ===== -->
+  <div class="slideshow-container">
+    <img class="slide-img active" src=https://media.istockphoto.com/id/1448453929/photo/cardiogram-pulse-trace-with-red-heart-on-pastel-blue-background.jpg?s=612x612&w=0&k=20&c=vROYnUeWCFJQ7uAV0Z_H1gQcwtBTygDg0aIB2YggbY0= alt="Slide 1" />
+    <img class="slide-img" src=https://images.squarespace-cdn.com/content/v1/5fc6b5a15fa98a681f096903/81da0fe8-d856-45f8-9753-893f78725154/Zig+Zag+Calorie+cycling+diet.jpgalt="Slide 2" />
+    <img class="slide-img" src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 004702.png" alt="Slide 3" />
+ 
+ <img class="slide-img" src=https://png.pngtree.com/thumb_back/fh260/background/20220423/pngtree-colorful-sheets-featuring-bmi-body-mass-index-and-the-word-diet-photo-image_30093618.jpg alt="Slide 5" />
+<a href="#features" class="slideshow-button">Get Started</a>
+
+  </div>
+<br>
+<br>
+
+  <!-- ===== SECTION TITLE ===== -->
+  <h2 class="section-title" id="features">Our Features</h2>
+<br>
+
+  <!-- ===== FEATURE CARDS ===== -->
+  <div class="bmi-cards">
+    <div class="bmi-card">
+      <img src=https://t3.ftcdn.net/jpg/04/02/03/42/360_F_402034251_pd469Z7inajROMb4GMN0NV0kI8sRWhNB.jpg alt="BMI" />
+      <div class="card-content">
+        <h3>BMI Calculator</h3>
+        <p>Know your BMI and understand your body composition.</p>
+        <a href="vridhi5.html" class="feature-btn">Calculate Now</a>
+      </div>
+    </div>
+
+ <div class="bmi-card">
+      <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 160042.png" alt="Progress Report" />
+      <div class="card-content">
+        <h3>Progress Report</h3>
+        <p>Track your health progress over time.</p>
+        <a href="bmi-report3.html" class="feature-btn">Check Report</a>
+
+      </div>
+    </div>
+
+
+    
+
+    <div class="bmi-card">
+      <img src=https://img.freepik.com/premium-vector/my-bottle-with-cold-clean-sparkling-water-recycled-reusable-eco-friendly-tumbler-drink-with-lid-loop-full-carbonated-fizzy-pure-aqua-flat-vector-illustration-isolated-white-background_198278-17269.jpg alt="Water Intake" />
+      <div class="card-content">
+        <h3>Water Intake</h3>
+        <p>Monitor your daily water consumption.</p>
+        <a href="glasstry.html" class="feature-btn">Track Now</a>
+      </div>
+    </div>
+
+    <div class="bmi-card">
+      <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 152723.png" alt="Calories" />
+      <div class="card-content">
+        <h3>Calorie Tracker</h3>
+        <p>Stay on top of your daily calorie goals.</p>
+        <a href="calinf.html" class="feature-btn">Track Now</a>
+      </div>
+    </div>
+
+ <div class="bmi-card">
+      <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 152453.png" alt="Period Tracker" />
+      <div class="card-content">
+        <h3>Period Tracker</h3>
+        <p>Track your cycle and get reminders easily.</p>
+        <a href="period.html" class="feature-btn">Track Now</a>
+
+      </div>
+    </div>
+
+
+    <div class="bmi-card">
+      <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 152908.png" alt="Fitness Tips" />
+      <div class="card-content">
+        <h3>Fitness Tips</h3>
+        <p>Quick and effective tips to stay in shape.</p>
+        <a href="tips.html" class="feature-btn">Read Tips</a>
+        </div>
+
+    </div>
+
+
+    <div class="bmi-card">
+      <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 153158.png" alt="Diet Plans" />
+      <div class="card-content">
+        <h3>Diet Plans</h3>
+        <p>Personalized meal plans for better health.</p>
+        <a href="menu.html" class="feature-btn">View Plans</a>
+      </div>
+    </div>
+
+   
+    <div class="bmi-card">
+      <img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 160544.png" alt="Health Risks" />
+      <div class="card-content">
+        <h3>Health Risks</h3>
+        <p>Be aware of risks and how to manage them.</p>
+        <a href="risk2.html" class="feature-btn">Learn More</a>
+
+      </div>
+    </div>
+  </div>
+<!-- ===== ABOUT SECTION ===== -->
+<div class="about-container">
+  <div class="about-left">
+    <h2>Why BMI Pro+?</h2>
+    <p>
+      BMI Pro+ is more than a fitness app—it's your all-in-one wellness companion designed for real, everyday people. While most apps stop at just tracking your BMI, we go further with personalized fitness plans, smart diet suggestions, period and hydration tracking, and even health risk insights. No overwhelming dashboards or unrealistic goals—just clean, meaningful features that help you stay in control of your health journey. Whether you're just starting out or trying to stay on track, BMI Pro+ adapts to you, not the other way around. Simple, supportive, and built for long-term balance, not burnout.    </p>
+  </div>
+  <div class="about-right">
+  <div class="about-slideshow">
+    <img class="about-slide active" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="Healthy 1" />
+    <img class="about-slide" src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 163724.png" alt="Healthy 2" />
+    <img class="about-slide" src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-06 164328.png" alt="Healthy 3" />
+  </div>
+</div>
+</div>
+
+<h2 class="section-title">Wellness Goals</h2>
+    <section class="hero-slider">
+  <div class="hero-slide active">
+<div class="hero-text">
+    Your Health, Your Way 💪
+<p style="font-size: 18px; font-weight: normal; color: #444; margin-top: 15px;">
+       BMI Pro+ empowers users to take charge of their health, their way. With personalized tools like BMI analysis, period tracking, fitness and diet plans, it adapts to individual needs and goals. The app promotes a holistic approach to well-being—tracking calories, water intake, and health risks—all in one place. It's more than just an app; it's your partner on the journey to better health.    </p>
+</div>
+    <div class="hero-img"><img src=https://cdn.benhvienthucuc.vn/wp-content/uploads/2024/10/nen-tap-yoya-o-dau.jpg alt="Health 1"></div>
+  </div>
+
+  <div class="hero-slide">
+    <div class="hero-text">Track Progress, Reach Goals 🎯
+<p style="font-size: 18px; font-weight: normal; color: #444; margin-top: 15px;">
+BMI Pro+ helps you track your progress and reach your goals—your way. From personalized BMI insights to tailored fitness and nutrition plans, it keeps you motivated and on track. Log daily habits, monitor changes, and adjust your journey with real-time feedback. Stay consistent, stay informed, and achieve a healthier you—step by step.
+</p>
+</div>
+    <div class="hero-img"><img src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-04-07 030345.png" alt="Health 2"></div>
+  </div>
+
+  <div class="hero-slide">
+    <div class="hero-text">Stay Hydrated, Stay Fit 💧
+<p style="font-size: 18px; font-weight: normal; color: #444; margin-top: 15px;">
+BMI Pro+ reminds you to stay hydrated and stay fit every day. With smart water tracking and custom fitness plans, it supports your body’s needs while helping you build healthy habits. Whether you're hitting the gym or just keeping active, hydration and fitness go hand in hand—and BMI Pro+ keeps you balanced.</p>
+</div>
+
+    <div class="hero-img"><img src=https://media.istockphoto.com/id/519369740/photo/female-drinking-water.jpg?s=612x612&w=0&k=20&c=oTySb7FFzjwvFJDHbhyG_dZ8ETl2s0USMClqZ4Ip9vI= alt="Health 3"></div>
+  </div>
+</section>
+
+
+
+<section class="featured-section">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="featured-grid">
+    <div class="featured-card" data-aos="fade-up" data-aos-delay="0">
+      <h3>How often should I work out?</h3>
+      <p>Aim for at least 3–5 times a week, mixing cardio and strength training.</p>
+    </div>
+
+     <div class="featured-card" data-aos="fade-up" data-aos-delay="0">
+      <h3>Do I need supplements to build muscle?</h3>
+      <p>Not necessarily; a balanced diet can provide all you need</p>
+    </div>
+     <div class="featured-card" data-aos="fade-up" data-aos-delay="0">
+      <h3>What’s better: cardio or weights?</h3>
+      <p>Both are important—cardio boosts heart health, weights build strength.</p>
+    </div>
+
+    
+    <div class="featured-card" data-aos="fade-up" data-aos-delay="200">
+      <h3>Does working out help with PMS?</h3>
+      <p>Yes, regular physical activity can reduce PMS symptoms over time.</p>
+    </div>
+    <div class="featured-card" data-aos="fade-up" data-aos-delay="400">
+      <h3>Can I eat carbs and still lose weight?</h3>
+      <p>Yes!! Whole carbs like oats,fruits and veggies are important for energy. </p>
+    </div>
+    <div class="featured-card" data-aos="fade-up" data-aos-delay="600">
+      <h3>Is skipping meals a good idea?</h3>
+      <p>Not really-skipping meals can slow your metabolism and cause overeating later.</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<footer class="footer">
+    <p>&copy; 2025 BMI Pro +. All rights reserved.</p>
+</footer>
+
+
+
+
+  <!-- ===== SLIDESHOW SCRIPT ===== -->
+  <script>
+    let slideIndex = 0;
+    let aboutIndex=0;
+    const slides = document.querySelectorAll('.slide-img');
+    const aboutSlides = document.querySelectorAll('.about-slide');
+
+    function showSlides() {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
+    }
+     function showAboutSlides() {
+    aboutSlides.forEach(slide => slide.classList.remove('active'));
+    aboutIndex = (aboutIndex + 1) % aboutSlides.length;
+    aboutSlides[aboutIndex].classList.add('active');
+  }
+
+    setInterval(showSlides, 3000);
+    setInterval(showAboutSlides, 3000);
+const heroSlides = document.querySelectorAll('.hero-slide');
+  let currentHero = 0;
+
+  function showHeroSlide() {
+    heroSlides.forEach(slide => slide.classList.remove('active'));
+    currentHero = (currentHero + 1) % heroSlides.length;
+    heroSlides[currentHero].classList.add('active');
+  }
+ AOS.init({
+    duration: 700, // animation duration
+       // delay between elements
+    once: true     // only animate once
+  });
+
+  setInterval(showHeroSlide, 6000); // change every 6 seconds
+ 
+</script>
+
+<script> window.chtlConfig = { chatbotId: "8328259957" } </script>
+<script async data-id="8328259957" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+
+</html>

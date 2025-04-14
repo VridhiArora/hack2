@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Intake Tracker</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+             background: linear-gradient(to bottom, #00aaff , #F1F6F9);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333333;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+
+        .counter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .counter button {
+            background-color: #00aaff;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .counter button:hover {
+            background-color: #007acc;
+        }
+
+        .glass-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+
+        .glass-image img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #00aaff;
+        }
+
+        .water-goal, .water-consumed {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            color: #555555;
+        }
+
+        .motivation {
+            font-size: 1.2rem;
+            color: #007acc;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            position: relative;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0;
+            background-color: #00aaff;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .back-button {
+            margin-top: 20px; /* Space between progress and back button */
+            padding: 10px 20px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #005f99;
+        }
+
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 1.5rem;
+            }
+            .counter button {
+                padding: 12px;
+                font-size: 1.2rem;
+            }
+            .glass-image img {
+                width: 60px;
+                height: 60px;
+            }
+            .water-goal, .water-consumed, .motivation {
+                font-size: 1rem;
+            }
+            .progress-bar {
+                height: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Water Intake Tracker</h2>
+
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+
+        <div class="counter">
+            <button onclick="decreaseWater()">&#8722;</button>
+            <div class="glass-image">
+                <img src="C:\Users\LENOVO\OneDrive\画像\glass-filled-with-water-isolated-white-background-cartoonstyle-vector-illustration_1044048-31.avif" alt="Glass of water">
+            </div>
+            <button onclick="increaseWater()">&#43;</button>
+        </div>
+
+        <div class="water-consumed" id="water-consumed">You have had 0 glasses of water.</div>
+        <div class="water-goal" id="water-goal"></div>
+        <div class="motivation" id="motivation"></div>
+
+        <button class="back-button" onclick="goBack()">Back</button>
+        <button class="back-button" onclick="goHome()">Home Page</button>
+
+        
+    </div>
+
+    <script>
+        var waterGlasses = 0;
+        var glassesNeeded = parseInt(sessionStorage.getItem('glassesNeeded')) || 10; // Get glassesNeeded from sessionStorage
+        var waterGoal = glassesNeeded;
+
+        function updateUI() {
+            document.getElementById('water-consumed').innerText = `You have had ${waterGlasses} glasses of water.`;
+            document.getElementById('water-goal').innerText = waterGlasses < waterGoal 
+                ? `You need to drink ${waterGoal - waterGlasses} more glasses.` 
+                : "Great job! You've met your daily water goal!";
+            
+            const progress = (waterGlasses / waterGoal) * 100;
+            document.getElementById('progress-bar-fill').style.width = progress + '%';
+
+            if (waterGoal - waterGlasses > 5) {
+                document.getElementById('motivation').innerText = "Keep going! You're doing great!";
+            } else if (waterGoal - waterGlasses > 0) {
+                document.getElementById('motivation').innerText = "Almost there! Just a few more to go!";
+            } else {
+                document.getElementById('motivation').innerText = "You're all set! Well done!";
+            }
+        }
+
+        function increaseWater() {
+            if (waterGlasses < waterGoal) {
+                waterGlasses++;
+                updateUI();
+            }
+        }
+
+        function decreaseWater() {
+            if (waterGlasses > 0) {
+                waterGlasses--;
+                updateUI();
+            }
+        }
+
+        function goBack() {
+            window.location.href="glasstry.html"; // This will take the user to the previous page
+        }
+         function goHome() {
+            window.location.href="homenew.html"; // This will take the user to the previous page
+        }
+
+        
+
+        updateUI();
+    </script>
+
+</body>
+</html>

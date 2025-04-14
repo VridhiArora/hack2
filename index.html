@@ -1,0 +1,179 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tailwind Login/Signup with OTP</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .form-slider {
+      transition: transform 0.5s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="w-full max-w-5xl bg-white shadow-lg rounded-xl flex overflow-hidden relative">
+    
+    <div id="formContainer" class="flex w-[200%] form-slider transform translate-x-0">
+
+      <!-- Login Form -->
+      <div class="w-1/2 p-10">
+        <h1 class="text-3xl font-bold text-gray-800 mb-1">Welcome back</h1>
+        <p class="text-gray-500 mb-6">Please enter your details</p>
+
+        <form id="loginForm" class="space-y-4">
+          <input type="email" id="loginEmail" placeholder="Email address" class="w-full px-4 py-2 border rounded-lg" required />
+          <input type="password" id="loginPassword" placeholder="Password" class="w-full px-4 py-2 border rounded-lg" required />
+          <div class="flex justify-between text-sm text-gray-600">
+            <label class="flex items-center gap-2">
+              <input type="checkbox" class="accent-purple-600" /> Remember me
+            </label>
+            <a href="#" class="text-black hover:underline font-medium">Forgot password?</a>
+          </div>
+          <button type="submit" class="bg-black text-white py-2 rounded-lg w-full hover:bg-gray-900">Sign in</button>
+          <div class="flex items-center gap-2 mt-4">
+            <div class="flex-grow border-t"></div>
+            <span class="text-gray-400 text-sm">or</span>
+            <div class="flex-grow border-t"></div>
+          </div>
+          <button type="button" class="w-full border py-2 rounded-lg flex items-center justify-center gap-2 mt-2 hover:bg-gray-50">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google" />
+            Sign in with Google
+          </button>
+        </form>
+
+        <p class="text-sm text-center mt-4 text-gray-600">
+          Don’t have an account?
+          <button id="showSignup" type="button" class="text-black hover:underline font-medium">Sign up</button>
+        </p>
+      </div>
+
+      <!-- Signup Form -->
+      <div class="w-1/2 p-10">
+        <h1 class="text-3xl font-bold text-gray-800 mb-1">Create an account</h1>
+        <p class="text-gray-500 mb-6">Let’s get started</p>
+
+        <form id="signupForm" class="space-y-4">
+            <input type="text" id="username" placeholder="Full Name" class="w-full px-4 py-2 border rounded-lg" required />
+            <input type="email" id="email" placeholder="Email address" class="w-full px-4 py-2 border rounded-lg" required />
+            <input type="tel" id="contactNumber" placeholder="Phone Number" class="w-full px-4 py-2 border rounded-lg" required />
+            <input type="date" id="dob" placeholder="Date of Birth" class="w-full px-4 py-2 border rounded-lg" required />
+
+            <input id="password" type="password" placeholder="Password" class="w-full px-4 py-2 border rounded-lg" required />
+            <input id="confirmPassword" type="password" placeholder="Confirm Password" class="w-full px-4 py-2 border rounded-lg" required />
+          
+            <p id="errorMsg" class="text-red-500 text-sm hidden">Passwords do not match</p>
+          
+            <button type="submit" class="bg-black text-white py-2 rounded-lg w-full hover:bg-gray-900">Sign up</button>
+            <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" required /> I agree to the Terms and Conditions
+              </label>
+          </form>
+          
+        <p class="text-sm text-center mt-4 text-gray-600">
+          Already have an account?
+          <button id="showLogin" type="button" class="text-black hover:underline font-medium">Log in</button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Right Side Illustration -->
+    <div class="absolute top-0 right-0 h-full w-1/2 bg-black flex items-center justify-center p-10">
+      <img src="screenshot1.png" alt="Illustration" class="w-3/4" />
+    </div>
+
+  </div>
+
+  <script>
+    const formContainer = document.getElementById('formContainer');
+    const showSignup = document.getElementById('showSignup');
+    const showLogin = document.getElementById('showLogin');
+
+    showSignup.addEventListener('click', () => {
+      formContainer.style.transform = 'translateX(-50%)';
+    });
+
+    showLogin.addEventListener('click', () => {
+      formContainer.style.transform = 'translateX(0%)';
+    });
+
+    function validateEmail(email) {
+      const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      return re.test(email);
+    }
+
+    function validatePhone(phone) {
+      const re = /^\d{10}$/;
+      return re.test(phone);
+    }
+
+    function generateOTP() {
+      return Math.floor(100000 + Math.random() * 900000);
+    }
+
+    // Signup form logic
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+      const contactNumber = document.getElementById('contactNumber').value.trim();
+
+      if (!username || !email || !password || !confirmPassword || !contactNumber) {
+        alert("All fields are required!");
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        alert("Invalid email!");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      if (!validatePhone(contactNumber)) {
+        alert("Phone number must be 10 digits!");
+        return;
+      }
+
+      const otp = generateOTP();
+      localStorage.setItem('userData', JSON.stringify({ username, email, password, contactNumber }));
+      localStorage.setItem('otp', otp.toString());
+
+      alert(`Your OTP is: ${otp}`);
+      window.location.href = "otp.html"; // Redirect to OTP page after OTP alert
+    });
+
+    // Login form logic
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      if (!email || !password) {
+        alert("Both fields are required!");
+        return;
+      }
+
+      const userData = JSON.parse(localStorage.getItem('userData'));
+
+      if (userData && userData.email === email && userData.password === password) {
+        alert("Login successful!");
+        window.location.href = "homenew.html"; // Redirect to home page after successful login
+      } else {
+        alert("Invalid credentials!");
+      }
+    });
+  </script>
+</body>
+</html>

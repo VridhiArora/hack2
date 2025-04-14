@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Diet Plan</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px;
+            background-color: #ffebee;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #e57373;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+        }
+
+        .choice-section {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .diet-btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #veg-btn {
+            background-color: #b2ebf2;
+            color: #00796b;
+        }
+
+        #non-veg-btn {
+            background-color: #d1c4e9;
+            color: #5e35b1;
+        }
+
+        .diet-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .diet-plan {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            display: none;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .diet-plan h2 {
+            text-align: center;
+            background-color: #FFE1E1;
+            padding: 15px;
+            border-radius: 8px;
+            color: #e57373;
+            margin-bottom: 20px;
+        }
+
+        .day-plan {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .collapsible {
+            background-color: #FFE1E1;
+            color: #e57373;
+            cursor: pointer;
+            padding: 15px;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .collapsible:hover {
+            background-color: #DBB5B5;
+        }
+
+        .content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .plan-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffebee;
+            margin-top: 30px;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            color: #e57373;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Intro Section -->
+    <header class="header">
+        <h1>Diet Plan To Lose Weight</h1>
+        <p>Select your dietary preference to view the detailed meal plan.</p>
+    </header>
+
+    <!-- Choice Section -->
+    <section class="choice-section">
+        <button class="diet-btn" id="veg-btn">Vegetarian</button>
+        <button class="diet-btn" id="non-veg-btn">Non-Vegetarian</button>
+    </section>
+
+    <!-- Vegetarian Diet Plan Section -->
+    <section class="diet-plan" id="veg-plan" style="display:none;">
+        <h2>Vegetarian Diet Plan</h2>
+        <div class="plan-container">
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 1</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Poha.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of mixed fruit.</p>
+                    <p><strong>Lunch:</strong> Quinoa salad with mixed vegetables.</p>
+                    <p><strong>Afternoon Snack:</strong> A handful of almonds.</p>
+                    <p><strong>Evening Snack:</strong> Low-fat yogurt with cinnamon.</p>
+                    <p><strong>Dinner:</strong> Palak paneer with chapati.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 2</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Oats porridge topped with fruits and nuts.</p>
+                    <p><strong>Morning Snack:</strong> A banana with peanut butter.</p>
+                    <p><strong>Lunch:</strong> Brown rice with vegetable curry and cucumber raita</p>
+                    <p><strong>Afternoon Snack:</strong> Curd with salt and cumin.</p>
+                    <p><strong>Evening Snack:</strong> Greek yogurt with honey and granola.</p>
+                    <p><strong>Dinner:</strong> 2 whole wheat chapatis with 1 cup dal with steamed broccoli</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 3</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Moong dal chilla with green chutney.</p>
+                    <p><strong>Morning Snack:</strong> Cottage cheese (paneer) with fruit.</p>
+                    <p><strong>Lunch:</strong> Lentil soup with whole-grain bread.</p>
+                    <p><strong>Afternoon Snack:</strong> Carrot sticks with hummus.</p>
+                    <p><strong>Evening Snack:</strong> A cup of herbal tea.</p>
+                    <p><strong>Dinner:</strong> Stuffed bell peppers with quinoa and vegetables.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 4</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Poha with peas and peanuts.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of mixed fruit.</p>
+                    <p><strong>Lunch:</strong> Vegetable biryani with a side of raita.</p>
+                    <p><strong>Afternoon Snack:</strong> A handful of roasted seeds.</p>
+                    <p><strong>Evening Snack:</strong> 1 cup of buttermilk (chaas).</p>
+                    <p><strong>Dinner:</strong> Chana masala with brown rice.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 5</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Eggless banana pancakes with honey.</p>
+                    <p><strong>Morning Snack:</strong> A handful of nuts.</p>
+                    <p><strong>Lunch:</strong> Methi thepla with yogurt.</p>
+                    <p><strong>Afternoon Snack:</strong> A small bowl of fruit salad.</p>
+                    <p><strong>Evening Snack:</strong> A small bowl of low-fat yogurt.</p>
+                    <p><strong>Dinner:</strong> Vegetable khichdi with a side of papad.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 6</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Chia seed pudding topped with fruits.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of mixed fruit.</p>
+                    <p><strong>Lunch:</strong> Paneer tikka with salad.</p>
+                    <p><strong>Afternoon Snack:</strong> A handful of roasted chickpeas.</p>
+                    <p><strong>Evening Snack:</strong> 1 cup of green tea.</p>
+                    <p><strong>Dinner:</strong> Dal makhani with chapati.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible"><b>Day 7</b></button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Smoothie with spinach, banana, and almond milk.</p>
+                    <p><strong>Morning Snack:</strong> A handful of walnuts.</p>
+                    <p><strong>Lunch:</strong> Vegetable sandwich with whole-grain bread.</p>
+                    <p><strong>Afternoon Snack:</strong> Cucumber sticks with dip.</p>
+                    <p><strong>Evening Snack:</strong> A small bowl of fruit salad.</p>
+                    <p><strong>Dinner:</strong> Aloo gobi with chapati.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Non-Vegetarian Diet Plan Section -->
+    <section class="diet-plan" id="non-veg-plan" style="display:none;">
+        <h2>Non-Vegetarian Diet Plan</h2>
+        <div class="plan-container">
+            <div class="day-plan">
+                <button class="collapsible">Day 1</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Egg omelet with vegetables.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of mixed fruit.</p>
+                    <p><strong>Lunch:</strong> Grilled chicken salad.</p>
+                    <p><strong>Afternoon Snack:</strong> A handful of nuts.</p>
+                    <p><strong>Evening Snack:</strong> Low-fat yogurt with honey.</p>
+                    <p><strong>Dinner:</strong> Fish curry with brown rice.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible">Day 2</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Oats with boiled eggs.</p>
+                    <p><strong>Morning Snack:</strong> A banana.</p>
+                    <p><strong>Lunch:</strong> Chicken biryani.</p>
+                    <p><strong>Afternoon Snack:</strong> Curd with salt.</p>
+                    <p><strong>Evening Snack:</strong> Chicken salad.</p>
+                    <p><strong>Dinner:</strong> Grilled fish with vegetables.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible">Day 3</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Moong dal chilla with egg.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of fruits.</p>
+                    <p><strong>Lunch:</strong> Chicken soup with whole-grain bread.</p>
+                    <p><strong>Afternoon Snack:</strong> Carrot sticks with hummus.</p>
+                    <p><strong>Evening Snack:</strong> A cup of green tea.</p>
+                    <p><strong>Dinner:</strong> Egg curry with chapati.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible">Day 4</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong>2 poached eggs on 1 slice of whole grain bread with avacado.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of mixed fruit.</p>
+                    <p><strong>Lunch:</strong> Fish fry with brown rice.</p>
+                    <p><strong>Afternoon Snack:</strong> A handful of roasted seeds.</p>
+                    <p><strong>Evening Snack:</strong> A bowl of soup.</p>
+                    <p><strong>Dinner:</strong> Chicken tikka with salad.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible">Day 5</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Smoothie with spinach and protein powder.</p>
+                    <p><strong>Morning Snack:</strong> A handful of nuts.</p>
+                    <p><strong>Lunch:</strong> Grilled chicken wrap.</p>
+                    <p><strong>Afternoon Snack:</strong> A small bowl of fruit salad.</p>
+                    <p><strong>Evening Snack:</strong> A small bowl of yogurt.</p>
+                    <p><strong>Dinner:</strong> Stir-fried prawns with vegetables.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible">Day 6</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Egg Bhurji: Scrambled eggs with onions,tomatoes and spices + 1 whole grain toast.</p>
+                    <p><strong>Morning Snack:</strong> A small bowl of mixed fruit.</p>
+                    <p><strong>Lunch:</strong> Chicken Caesar salad.</p>
+                    <p><strong>Afternoon Snack:</strong> A handful of almonds.</p>
+                    <p><strong>Evening Snack:</strong> A cup of herbal tea.</p>
+                    <p><strong>Dinner:</strong> Grilled fish with sautéed vegetables.</p>
+                </div>
+            </div>
+
+            <div class="day-plan">
+                <button class="collapsible">Day 7</button>
+                <div class="content">
+                    <p><strong>Breakfast:</strong> Egg white omelet with vegetables.</p>
+                    <p><strong>Morning Snack:</strong> A handful of walnuts.</p>
+                    <p><strong>Lunch:</strong> Turkey sandwich on whole grain bread.</p>
+                    <p><strong>Afternoon Snack:</strong> A small bowl of carrot sticks.</p>
+                    <p><strong>Evening Snack:</strong> A fruit smoothie.</p>
+                    <p><strong>Dinner:</strong> Baked chicken with steamed broccoli.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Healthy Diet Plans. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const collapsibles = document.querySelectorAll(".collapsible");
+
+        collapsibles.forEach((collapsible) => {
+            collapsible.addEventListener("click", function () {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+
+        document.getElementById("veg-btn").addEventListener("click", function () {
+            document.getElementById("veg-plan").style.display = "block";
+            document.getElementById("non-veg-plan").style.display = "none";
+        });
+
+        document.getElementById("non-veg-btn").addEventListener("click", function () {
+            document.getElementById("non-veg-plan").style.display = "block";
+            document.getElementById("veg-plan").style.display = "none";
+        });
+    </script>
+</body>
+
+</html>

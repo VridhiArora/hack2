@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        /* ✅ General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        /* ✅ Navbar (Broader) */
+        .header {
+            background-color: black;
+            color: white;
+            padding: 90px 20px; /* Increased height */
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Move "Profile" Text Up */
+.header::after {
+    content: "Profile";
+    position: absolute;
+    bottom: 40px; /* Moves text upwards */
+    font-size: 24px;
+    font-weight: bold;
+}
+/* ✅ Move "Profile" Text Up */
+.header span {
+    margin-top: -20px; /* Move text up */
+    display: inline-block;
+}
+        /* ✅ Profile Picture Section */
+        .profile-pic-container {
+            position: relative;
+            width: 140px; /* Increased size */
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: -85px auto 10px; /* Moves image up to overlap navbar */
+            border: 5px solid white;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ✅ Change Picture Label */
+        .change-pic {
+            margin-top: 5px;
+            font-size: 14px;
+            color: gray;
+            cursor: pointer;
+        }
+
+        /* ✅ Profile Info Container */
+        .profile-container {
+            background-color: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            margin: auto;
+            margin-top: 20px; /* Adjusted for better spacing */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        /* ✅ Input Fields */
+        .input-group {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f0f0f0;
+        }
+
+        /* Read-only effect */
+        .input-group input[readonly] {
+            background-color: #e0e0e0;
+            color: #555;
+        }
+
+        /* ✅ Buttons */
+        .btn {
+            margin-top: 20px;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: black;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #333;
+        }
+
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+            display: none;
+        }
+
+        .save-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Hidden File Upload */
+        #upload-pic {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Header -->
+    <div class="header">
+        Profile
+    </div>
+
+    <!-- ✅ Profile Picture (Correct Position & Default Image) -->
+    <div class="profile-pic-container">
+        <img id="profile-pic" src="C:\Users\LENOVO\OneDrive\Desktop\TECH3.0\Screenshot 2025-03-16 014712.png" class="profile-pic" alt="Profile Picture">
+    </div>
+    <input type="file" id="upload-pic" accept="image/*">
+    <label for="upload-pic" class="change-pic">Change Picture</label>
+
+    <!-- ✅ Profile Container -->
+    <div class="profile-container">
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="profile-username" readonly>
+        </div>
+        <div class="input-group">
+            <label>Email I’d</label>
+            <input type="email" id="profile-email" readonly>
+        </div>
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="text" id="profile-phone" readonly>
+        </div>
+
+        <!-- ✅ Buttons -->
+        <button class="btn edit-btn" onclick="enableEditing()">Edit Profile</button>
+        <button class="btn save-btn" onclick="saveProfile()">Save Changes</button>
+    </div>
+
+    <script>
+        let user = JSON.parse(localStorage.getItem('userData'));
+
+        document.getElementById('profile-username').value = user.username;
+        document.getElementById('profile-email').value = user.email;
+        document.getElementById('profile-phone').value = user.contactNumber;
+
+        function enableEditing() {
+            document.querySelectorAll('.input-group input').forEach(input => input.removeAttribute('readonly'));
+            document.querySelector('.edit-btn').style.display = 'none';
+            document.querySelector('.save-btn').style.display = 'block';
+        }
+
+        function saveProfile() {
+            user.username = document.getElementById('profile-username').value;
+            user.email = document.getElementById('profile-email').value;
+            user.contactNumber = document.getElementById('profile-phone').value;
+
+            localStorage.setItem('userData', JSON.stringify(user));
+
+            alert("Profile updated successfully!");
+            location.reload();
+        }
+
+        // ✅ Load Default Profile Picture if No Picture Exists
+        let savedPic = localStorage.getItem('profilePic');
+        if (savedPic) {
+            document.getElementById("profile-pic").src = savedPic;
+        } else {
+            document.getElementById("profile-pic").src = "default-avatar.png"; // Default Image
+        }
+
+        // ✅ Profile Picture Upload & Save
+        document.getElementById("upload-pic").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("profile-pic").src = e.target.result;
+                    localStorage.setItem('profilePic', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tips</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #FFF0F5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: nowrap; /* Prevent columns from wrapping */
+        }
+
+        .column {
+            border-radius: 15px;
+            padding: 25px;
+            background-color: #ffffff;
+            border-width: 5px;
+            border-style: solid;
+            height: auto;
+            width: 30%; /* Set width to 30% to ensure 3 columns fit side by side */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeInUp 0.5s forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Keyframe Animation */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Borders for each column */
+        .column:nth-child(1) {
+            border-color: #FFB0B0;
+            animation-delay: 0.5s;
+        }
+
+        .column:nth-child(2) {
+            border-color: #91DDCF;
+            animation-delay: 1s;
+        }
+
+        .column:nth-child(3) {
+            border-color: #DCBFFF;
+            animation-delay: 1.5s;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: black;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #ff6347; /* Highlight important points */
+        }
+
+        .weekly-plan {
+            background-color: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff6347;
+        }
+
+        .weekly-plan h3 {
+            font-size: 1.5rem;
+            color: black;
+            text-decoration: underline;
+        }
+
+        .weekly-plan ul {
+            list-style: square;
+        }
+.home-btn-container {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.home-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color:#d63384; /* Slight color for attraction */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+}
+
+
+
+        /* Lightbox effect on hover */
+        .column:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        /* Responsive for smaller screens */
+        @media (max-width: 1024px) {
+            .column {
+                width: 100%; /* Stack columns on smaller screens */
+            }
+
+            .container {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Fitness Plan</h1>
+
+    <div class="container">
+
+        <!-- Column 1: Weekly Exercise Plan + Tips for Losing Weight -->
+        <div class="column">
+            <!-- Weekly Plan -->
+            <div class="weekly-plan">
+                <h3>Weekly Exercise Plan:</h3>
+                <ul>
+                    <li><span class="highlight">Monday:</span> 30 minutes jogging + 15 minutes strength training (upper body)</li>
+                    <li><span class="highlight">Tuesday:</span> HIIT session (20-30 minutes)</li>
+                    <li><span class="highlight">Wednesday:</span> 45 minutes cycling + stretching</li>
+                    <li><span class="highlight">Thursday:</span> Strength training (lower body, 30 minutes)</li>
+                    <li><span class="highlight">Friday:</span> 30 minutes swimming + 10 minutes core exercises</li>
+                    <li><span class="highlight">Saturday:</span> 60 minutes brisk walking/hiking</li>
+                    <li><span class="highlight">Sunday:</span> Rest or yoga</li>
+                </ul>
+            </div>
+            <h3>Workout Structure</h3>
+            <ul>
+                <li><span class="highlight">Frequency:</span> 3-5 days per week.</li>
+                <li><span class="highlight">Reps and Sets:</span> 3-5 sets of 6-12 reps for muscle gain.</li>
+                <li><span class="highlight">Rest:</span> 48 hours recovery for each muscle group.</li>
+            </ul>
+
+
+            <h2>Tips for Losing Weight</h2>
+            <ul>
+                <li><span class="highlight">Cardiovascular (Aerobic) Exercise:</span> Burns calories and improves heart health.</li>
+                <li>Running or Jogging: 30-60 minutes, 3-5 times a week.</li>
+                <li>Cycling: 30-60 minutes, 3-5 times a week.</li>
+                <li>Swimming (Optional): Swim continuously for 30-60 minutes.</li>
+                <li>Walking: Brisk walking for 30-60 minutes daily is effective for beginners.</li>
+                <li>Intensity: Aim for moderate to vigorous intensity.</li>
+                <br>
+
+                <li><span class="highlight">Strength Training:</span> Builds muscle, increasing metabolism and calorie burn at rest.</li>
+                <li>Frequency: 2-3 times a week.</li>
+                <li>Exercises: Weightlifting (squats, deadlifts), Bodyweight exercises (push-ups, lunges), Resistance bands.</li>
+                <li>Structure: 2-3 sets of 8-12 reps for each exercise.</li>
+                <br>
+
+                <li><span class="highlight">High-Intensity Interval Training (HIIT):</span> Short bursts of intense exercise followed by rest, effective for calorie burn.</li>
+                <li>Workout: 30 seconds sprinting, 1 minute walking (repeat for 20-30 minutes).</li>
+                <li>Circuit training: Burpees, jumping jacks, squat jumps (30 seconds on, 30 seconds rest).</li>
+                <li>Frequency: 1-3 times a week.</li>
+                <br>
+
+                <li><span class="highlight">Flexibility and Balance Training:</span> Improves overall fitness and reduces injury risk.</li>
+                <li>Yoga: Improves flexibility and enhances mental well-being.</li>
+                <br>
+               
+                <li><span class="highlight">Daily Activities:</span> </li>
+                <li>Take the Stairs: Aim for 30 minutes, 3-5 times a week.</li>
+                <li>Walk or Cycle to Work: Outdoor cycling or stationary biking for 30-60 minutes.</li>
+                 <br>
+
+            </ul>
+        </div>
+
+        <!-- Column 2: Maintaining a Healthy Weight -->
+        <div class="column">
+             <div class="weekly-plan">
+
+                  <h2>Weekly Exercise Plan</h2>
+                  <ul>
+                      <li><span class="highlight">Monday:</span> Upper Body (Push Focus) - Bench Press, Incline Dumbbell Press.</li>
+                      <li><span class="highlight">Tuesday:</span> Lower Body (Pull Focus) - Squats, Deadlifts.</li>
+                      <li><span class="highlight">Wednesday:</span> Rest or Active Recovery.</li>
+                      <li><span class="highlight">Thursday:</span> Upper Body (Pull Focus) - Pull-Ups, Bent-Over Rows.</li>
+                      <li><span class="highlight">Friday:</span> Lower Body (Leg and Core Focus) - Deadlifts, Leg Curls.</li>
+                      <li><span class="highlight">Saturday:</span> Full Body Workout - Barbell Squat to Press, Kettlebell Swings.</li>
+                      <li><span class="highlight">Sunday:</span> Rest or Light Activity.</li>
+                 </ul>
+              </div>
+
+            <h3>Workout Structure</h3>
+            <ul>
+                <li><span class="highlight">Frequency:</span> 3-5 days per week.</li>
+                <li><span class="highlight">Reps and Sets:</span> 3-5 sets of 6-12 reps for muscle gain.</li>
+                <li><span class="highlight">Rest:</span> 48 hours recovery for each muscle group.</li>
+            </ul>
+
+            <h2>Tips for Gaining Weight</h2>
+
+            <h3><span class="highlight">Strength Training</span></h3>
+            <p>Focus on resistance training to build muscle mass. Key exercises include:</p>
+            <ul>
+                <li><span class="highlight">Compound Exercises:</span> Work multiple muscle groups.</li>
+                <li>Squats: Back, front, goblet variations.</li>
+                <li>Deadlifts: Conventional, sumo, Romanian.</li>
+                <li>Bench Press: Flat, incline, decline variations.</li>
+                <li>Pull-Ups/Chin-Ups: Upper body and back development.</li>
+                <li>Rows: Barbell, dumbbell, seated cable.</li>
+            </ul>
+
+            <h3><span class="highlight">Supplements (if needed)</span></h3>
+            <ul>
+                <li>Protein Powder: Helps meet protein goals.</li>
+                <li>Creatine: Assists with strength gains.</li>
+                <li>Weight Gainers: High-calorie shakes for those who struggle to eat enough.</li>
+            </ul>
+
+            <h3><span class="highlight">Dietary Recommendations</span></h3>
+            <p>Focus on high-calorie, nutrient-dense foods:</p>
+            <ul>
+                <li><span class="highlight">Healthy Fats:</span> Avocado, nuts, seeds, olive oil.</li>
+                <li><span class="highlight">Proteins:</span> Chicken, fish, eggs, dairy, legumes.</li>
+                <li><span class="highlight">Carbohydrates:</span> Whole grains, potatoes, quinoa, fruits.</li>
+                <li>Eat more frequently (5-6 smaller meals per day).</li>
+            </ul>
+            <ul>
+                 <li><span class="highlight">Flexibility and Balance Training:</span> Improves overall fitness and reduces injury risk.</li>
+                <li>Yoga: Improves flexibility and enhances mental well-being.</li>
+                <li>Stretching: Incorporate daily stretches for major muscle groups.</li>
+                <br>
+                <li><span class="highlight">Daily Activities:</span> </li>
+                <li>Take the Stairs: Aim for 30 minutes, 3-5 times a week.</li>
+                <li>Walk or Cycle to Work: Outdoor cycling or stationary biking for 30-60 minutes.</li>
+                 <br>
+           </ul>
+
+
+        </div>
+
+        <!-- Column 3: General Tips for Staying Healthy -->
+        <div class="column">
+           <div class="weekly-plan">
+                <h3>Weekly Exercise Plan:</h3>
+                <ul>
+                    <li><span class="highlight">Monday:</span> 30 minutes of brisk walking + 15 minutes of strength training (bodyweight exercises).</li>
+                    <li><span class="highlight">Tuesday:</span>30 minutes of cycling or swimming </li>
+                    <li><span class="highlight">Wednesday:</span>HIIT workout for 20 minutes. </li>
+                    <li><span class="highlight">Thursday:</span>30 minutes of yoga or Pilates. </li>
+                    <li><span class="highlight">Friday:</span>30 minutes of jogging + 15 minutes of strength training. </li>
+                    <li><span class="highlight">Saturday:</span> Active day (hiking, dancing, etc.).</li>
+                    <li><span class="highlight">Sunday:</span> Rest or light stretching. </li>
+                </ul>
+            </div>
+
+            <h2>Tips for Maintaining a Healthy Weight</h2>
+            <li><span class="highlight"> Consistency: Aim for at least 150-300 minutes of moderate-intensity exercise</span></li>
+            <ul>
+                <li><span class="highlight">Cardiovascular Exercise:</span> These exercises elevate your heart rate and burn calories.</li>
+                <li>Walking or Jogging: Aim for 30 minutes, 3-5 times a week.</li>
+                <li>Cycling: Outdoor cycling or stationary biking for 30-60 minutes.</li>
+                <li>Swimming: Full-body workout that is easy on the joints; aim for 30-60 minutes.</li>
+                <li>Jump Rope: A quick, high-intensity workout that can be done anywhere.</li>
+                <li>Dancing: Fun way to get moving</li>
+                <br>
+
+                <li><span class="highlight">Strength Training:</span> Builds muscle, increasing metabolism and calorie burn at rest.</li>
+                <li>Bodyweight Exercises:</li>
+                <li>Push-Ups: Strengthen chest, shoulders, and triceps.</li>
+                <li>Squats: Target legs and glutes.</li>
+                <li>Lunges: Great for lower body strength.</li>
+                <li>Planks: Core stability and strength.</li>
+               <li>Dumbbell Rows: For back strength.</li>
+               <li>Deadlifts: Focus on lower body and core.</li>
+                <li>Chest Press: Strengthens upper body.</li>
+
+                 <br>
+
+                <li><span class="highlight">High-Intensity Interval Training (HIIT):</span> Short bursts of intense exercise followed by rest, effective for calorie burn.</li>
+                <li>Workout: 30 seconds of burpees, followed by 30 seconds of rest.
+                             30 seconds of mountain climbers, followed by 30 seconds of rest.
+                             30 seconds of high knees, followed by 30 seconds of rest.
+                 </li>
+                                <li>Frequency: Repeat for 15-20 minutes.</li>
+                <br>
+
+                <li><span class="highlight">Flexibility and Balance Training:</span> Improves overall fitness and reduces injury risk.</li>
+                <li>Yoga: Improves flexibility and enhances mental well-being.</li>
+                <li>Stretching: Incorporate daily stretches for major muscle groups.</li>
+                <br>
+                <li><span class="highlight">Daily Activities:</span> </li>
+                <li>Take the Stairs: Aim for 30 minutes, 3-5 times a week.</li>
+                <li>Walk or Cycle to Work: Outdoor cycling or stationary biking for 30-60 minutes.</li>
+                 <br>
+
+
+
+            </ul>
+        </div>
+      </div>
+<div class="home-btn-container">
+  <a href="homenew.html" class="home-btn">Home</a>
+</div>
+
+</body>
+</html>
